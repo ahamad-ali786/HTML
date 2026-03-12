@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Login form</title>
+</head>
+
+<style>
+body{
+  background-color:#77AAC2;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  margin-top: 250px;
+  margin-top: 120px;
+}
+h3{
+  text-align: center;
+  font-weight: 900px;
+  font-size: 25px;
+
+}
+.container{
+  background-color: #E7EFF1;
+  padding: 50px;
+  padding-left: 10px;
+  padding-top: 10px;
+  padding-right: 10px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+}
+.error-msg { color: #e74c3c; font-size: 0.75rem; margin-top: 4px; height: 15px; }
+.box{
+ height: 30px;
+ width: 300px;
+ border: none;
+ border-radius: 2px;
+ 
+ }
+ .name{
+     color: red;
+     font-size: small;
+    
+ }
+ 
+ 
+ .label{
+   margin-bottom: 5px;
+ }
+ .toggle-btn { position: relative; cursor: pointer; font-size: 0.8rem; color: #666;
+ 
+ position: absolute ;
+ margin-left: 260px;
+ margin-top: 281px;
+ }
+ .btn{
+   height: 40px;
+   border: none;
+   background-color: #5E8BD4;
+   color: white;
+   border-radius: 4px;
+   cursor: pointer;
+ }
+ .btn:disabled {
+   background:#95a5a6;
+ }
+ 
+.login{
+ text-decoration-line: none;
+ margin-left: 2px;
+
+  }
+  .log{
+   font-size: small;
+   text-align: center;
+  }
+  input::placeholder {
+    padding-left: 5px;
+  }
+ 
+  
+  </style>
+
+<body>
+  <div class="container" id="Loginform">
+  <h3>Create Account</h3>
+  <label class="label"  for="Full Name">Full name </label>
+  <input type="text" name="Full Name" placeholder="Enter Full name" class="box" id="forName" required>
+  <span class="name" id="popmsg">
+      
+  </span>
+  <br>
+  <label class="label" for="Email">Email </label>
+  <input type="email" name="Email" id="email" placeholder="Enter your Email" class="box" required >
+  <div id="emailError" class="error-msg"></div><br />
+  <label class="label"  for="Password">Password </label>
+  <input type="password" name="Password" id="pass" placeholder="Enter your password" class="box"  value="" required />
+  <span class="passmsg" id="passmsg">
+      
+  </span>
+   <span id="togglePassword" class="toggle-btn">SHOW</span>
+   <br>
+  <button onclick = "loginformbtn()" class="btn" id="butn" >Register</button>
+  
+  <p class="log">already have an account?<a href="Login" class="login">Login</a></p>
+  
+  </div>
+</body>
+</html>
+<script>
+function loginformbtn() {
+    // 1. Select all elements first
+    
+    const email = document.querySelector('#email');
+    const password = document.querySelector('#pass');
+    const togglebtn = document.querySelector('#togglePassword');
+    const butn = document.querySelector('#butn'); 
+    const emailerror = document.querySelector('#emailError');
+        
+           
+      //for Name validation      
+            
+      let fullname = document.querySelector('#forName')
+            const popmsg = document.querySelector('#popmsg');
+            
+   fullname.addEventListener('input', ()=>{
+        
+       const isname = fullname;
+  
+       
+       if(isname.value.length  == 4
+       ){
+       
+           console.log('correct')
+          popmsg.textContent = "name is too short"
+           fullname.style.borderColor = '#red' 
+       }else if (isname.value.length == 25){
+           popmsg.textContent = ""
+           fullname.style.borderColor = '#ccc'
+       }else if (isname.value.length < 25 && 5) {
+           popmsg.textContent = ""
+           
+       }
+       else if (isname.value.length == 26){
+          popmsg.textContent = "invalid name "
+          fullname.style.borderColor = '#ccc'
+    }
+    }) 
+   
+       
+   
+        
+    
+
+    // 3. Password Toggle logic 
+    togglebtn.addEventListener('click', () => {
+        const isPassword = password.type === 'password';
+        password.type = isPassword ? 'text' : 'password';
+        togglebtn.textContent = isPassword ? 'HIDE' : 'SHOW';
+        
+    });
+        
+
+    // For Email checking 
+    email.addEventListener('input', () => {
+        if (email.value && !email.value.includes('@')) {
+            emailerror.textContent = "Invalid email format";
+            email.style.borderColor = "#e74c3c";
+        } else {
+            emailerror.textContent = "";
+            email.style.borderColor = '#ccc';
+        }
+    });
+
+//for password checking
+
+setTimeout(() => {    // settig time taking to load the form via button 
+    
+     if(password.value.length == 20 ){
+       const passmsg = document.querySelector('#passmsg');
+       passmsg.textContent = ""
+       
+   }else if (password.value.length   > 20){
+       passmsg.textContent = "Your password is too long "
+   }else if(password.value == null) {
+        passmsg.textContent = "please enter password"
+    }
+    
+}, 1000) ;
+
+}
+
+
+//calling button function
+loginformbtn();
+</script>
+
+</html>
